@@ -39,9 +39,9 @@ public class TimeTableSpringBootApp {
             LessonRepository lessonRepository) {
         return (args) -> {
             if (demoData == DemoData.NONE) {
-                addTimeSlots(timeslotRepository);
-                addLessons(lessonRepository);
-                addRooms(roomRepository);
+              // addTimeSlots(timeslotRepository);
+               // addLessons(lessonRepository);
+                //addRooms(roomRepository);
                 return;
             }
 
@@ -302,6 +302,19 @@ public class TimeTableSpringBootApp {
 
         lectures.add(new Lectures("Nancy", "E.V.S", 7, "3A", false));
         lectures.add(new Lectures("Nancy", "E.V.S", 7, "3B", false));
+
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "3A", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "3B", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "4A", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "4B", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "5A", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "5B", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "6A", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "6B", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "7A", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "7B", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "8A", false));
+        lectures.add(new Lectures("Games Teacher", "Games", 2, "8B", false));
 
         for(Lectures lectures1: lectures){
             for(int i=0; i < lectures1.numberOfPeriodsInAWeek; i++){

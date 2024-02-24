@@ -27,6 +27,7 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 teacherConflict(constraintFactory),
                 studentGroupConflict(constraintFactory),
                 classTeacherFirstLectureMapping(constraintFactory),
+                consecutiveContraints(constraintFactory),
                 // Soft constraints
                 studentRoomStability(constraintFactory),
                 teacherTimeEfficiency(constraintFactory),
@@ -48,6 +49,26 @@ public class TimeTableConstraintProvider implements ConstraintProvider {
                 })
                 .penalize(HardSoftScore.ONE_HARD)
                 .asConstraint("Not a first lecture");
+    }
+
+    private Constraint consecutiveContraints(ConstraintFactory constraintFactory) {
+        return constraintFactory
+                .forEachUniquePair(Lesson.class,
+                        Joiners.equal(Lesson::getStudentGroup)
+                )
+                .filter((lesson, lesson2) -> {
+                   return  (lesson.getSubject().equals("Games") && lesson2.getSubject().equals("Games")) &&
+
+                           (     (lesson.getTimeslot().getDayOfWeek() != lesson2.getTimeslot().getDayOfWeek()) ||
+
+                           !( lesson.getTimeslot().getEndTime().equals(lesson2.getTimeslot().getStartTime())
+                            || lesson2.getTimeslot().getEndTime().equals(lesson.getTimeslot().getStartTime()))) ;
+//                    return ((lesson.isClassTeacher() && !lesson2.isClassTeacher()) && lesson.getTimeslot().getStartTime().isAfter(lesson2.getTimeslot().getStartTime()))
+//                            ||
+//                            ((lesson2.isClassTeacher() && !lesson.isClassTeacher()) && lesson2.getTimeslot().getStartTime().isAfter(lesson.getTimeslot().getStartTime()));
+                })
+                .penalize(HardSoftScore.ONE_HARD)
+                .asConstraint("Games period constraint");
     }
 
 

@@ -189,6 +189,15 @@ function addLesson() {
   $('#lessonDialog').modal('toggle');
 }
 
+function printTimeTable() {
+  console.log("came for print ");
+  $.get("/timeTable/print", function () {
+    refreshTimeTable();
+  }).fail(function (xhr, ajaxOptions, thrownError) {
+    showError("Adding lesson (" + subject + ") failed.", xhr);
+  });
+}
+
 function deleteLesson(lesson) {
   $.delete("/lessons/" + lesson.id, function () {
     refreshTimeTable();
@@ -286,6 +295,10 @@ $(document).ready(function () {
 
   $("#refreshButton").click(function () {
     refreshTimeTable();
+  });
+  $("#printButton").click(function () {
+    console.log("Came for print in this method")
+    printTimeTable();
   });
   $("#solveButton").click(function () {
     solve();

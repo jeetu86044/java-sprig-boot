@@ -37,13 +37,16 @@ public class Timeslot {
 
     @Override
     public String toString() {
-        return dayOfWeek + " " + startTime;
+        return dayOfWeek.name().substring(0, 3) + " " + startTime + ":" + endTime;
     }
 
     // ************************************************************************
     // Getters and setters
     // ************************************************************************
 
+    public boolean equals(Timeslot obj) {
+        return obj.dayOfWeek == this.dayOfWeek && obj.getStartTime().equals(this.getStartTime()) && obj.getEndTime().equals(this.endTime);
+    }
     public Long getId() {
         return id;
     }
